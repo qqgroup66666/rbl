@@ -1,0 +1,54 @@
+{
+    "model": {
+        "model_type": "_resnet32",
+        "num_classes": 10,
+        "model_use": "PLPostHocModel",
+        "feature_num": 256
+    },
+    "dataset": {
+        "dataset_name": "cifar-10-long-tail",
+        "norm_params": {
+			"mean": [123.675, 116.280, 103.530],
+			"std": [58.395, 57.120, 57.375]
+		},
+        "use_lmdb": true,
+        "resampler_type": "None",
+        "aug": true,
+        "aug_type": "cifar_AutoAug_Cutout",
+        "multi_view_num" : 1,
+        "use_unifrom_test_and_val": true,
+        "data_dir": "../data/cifar-100-long-tail",
+        "input_size": [ 32, 32 ],
+        "npy_style": true,
+        "class2id": { "0": 0, "1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9}
+    },
+    "training": {
+        "save_all_models": false, 
+        "metric_name": "ACC",
+        "loss_type": "PL",
+        "loss_params": {
+            "loss_function": "CE"
+        },
+        "epoch_num": 600,
+        "train_batch_size": 256,
+        "test_batch_size": 512,
+        "lr": 1e-1,
+        "lr_decay_method": "BalancedSoftmax_lr_decay",
+        "lr_decay_params": {
+            "linear_epoch": 8
+        },
+        "weight_decay": 5e-4,
+        "opt": "SGD",
+        "momentum": 0.9,
+        "seed": "None",
+
+        "cal_matrix_datasetset": "val",
+        "nesterov": true,
+        "lr_decay_rate": 0.99,
+        "lr_decay_epochs": 1,
+        "metric_params": {
+            "alpha": 0.4,
+            "beta": 0.1
+        }
+    }
+}
